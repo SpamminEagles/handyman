@@ -1,7 +1,0 @@
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\bin\Debug\HandyManService.exe.config
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\bin\Debug\HandyManService.exe
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\bin\Debug\HandyManService.pdb
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\obj\Debug\HandyManService.csprojResolveAssemblyReference.cache
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\obj\Debug\HandyManService.csproj.CoreCompileInputs.cache
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\obj\Debug\HandyManService.exe
-C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\HandyManService\obj\Debug\HandyManService.pdb
