@@ -10,7 +10,7 @@ using HandyMan.Types;
 namespace HandyMan.Scripts
 {
     //This class is created with the information I found over here: https://blogs.msdn.microsoft.com/toub/2006/05/03/low-level-keyboard-hook-in-c/
-    public static class KeyRetyper
+    public static class LLproc
     {
         #region DllImports
         //Stuff that will establish the Hook
@@ -98,5 +98,19 @@ namespace HandyMan.Scripts
             return CallNextHookEx(_hookId, nCode, wParam, lParam);
         }
 
+    }
+    
+    public class KeyRetyper
+    {
+        public static char Retype(char input, Languages languageTo = Languages.Russian)
+        {
+            switch (languageTo)
+            {
+                case Languages.Russian:
+                    
+                    break;
+            }
+            return 'a';
+        }
     }
 }

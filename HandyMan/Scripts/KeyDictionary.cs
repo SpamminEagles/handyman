@@ -6,7 +6,7 @@ namespace HandyMan.Types
 {
     public class KeyDictionaries
     {
-        public Dictionary<char, char> CirillycLatinKeys = new Dictionary<char, char>
+        public static readonly Dictionary<char, char> CirillycLatinKeys = new Dictionary<char, char>
         {
             {'a' , 'а' },            {'A' , 'А' },
             {'b' , 'б' },            {'B' , 'Б' },
@@ -24,14 +24,22 @@ namespace HandyMan.Types
             {'n' , 'н' },            {'N' , 'Н' },
             {'o' , 'о' },            {'O' , 'О' },
             {'p' , 'п' },            {'P' , 'П' },
-            {'q' , 'q' },            {'Q' , 'Q' },
+            {'q' , 'ж' },            {'Q' , 'Ж' },
             {'r' , 'р' },            {'R' , 'Р' },
             {'s' , 'ш' },            {'S' , 'Ш' },
-            {'t' , 'т' },            {'T' , 'Т'},
-            {'u' , 'у' },            {'U' , 'У'},
-            {'v' , 'в' },            {'V' , 'В'},
-            {'z' , 'з' },            {'Z' , 'З'},
-            
+            {'t' , 'т' },            {'T' , 'Т' },
+            {'u' , 'у' },            {'U' , 'У' },
+            {'v' , 'в' },            {'V' , 'В' },
+            {'w' , 'щ' },            {'W' , 'Щ' },
+            {'x' , 'ь' },            {'y' , 'ъ' },
+            {'z' , 'з' },            {'Z' , 'З' },
+            {'á' , 'я' },            {'Á' , 'Я' },
+            {'é' , 'е' },            {'É' , 'Е' },
+            {'ó' , 'ё' },            {'Ó' , 'Ё' },
+            {'ú' , 'ю' },            {'Ú' , 'Ю' },
+            {'í' , 'ы' },            {'Í' , 'Ы' },
+            {'ö' , 'ч' },            {'Ö' , 'Ч' },
+            {'ü' , 'ц' },            {'Ü' , 'Ц' }            
         };
 
     }
