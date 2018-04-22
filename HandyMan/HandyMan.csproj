@@ -54,9 +54,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DebugPopup.xaml.cs">
+      <DependentUpon>DebugPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\KeyDictionary.cs" />
     <Compile Include="Scripts\KeyRetyper.cs" />
+    <Compile Include="Scripts\Ticker.cs" />
     <Compile Include="Scripts\Types.cs" />
+    <Page Include="DebugPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frames\Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

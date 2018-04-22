@@ -5,13 +5,16 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using HandyMan.Types;
 namespace HandyMan.Scripts
 {
     //This class is created with the information I found over here: https://blogs.msdn.microsoft.com/toub/2006/05/03/low-level-keyboard-hook-in-c/
     public static class LLproc
-    {
+    {       
+
         #region DllImports
         //Stuff that will establish the Hook
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -38,16 +41,18 @@ namespace HandyMan.Scripts
 
         private static bool hookSet = false;    //readonly public via Property
         private static int latestPressedKey;
-        public static Alphabet mimicedAlphabet;
 
         private static IntPtr _hookId = IntPtr.Zero;
         private static LowLevelKeyboardProc Proc = CallbackHook;
+
+        public static CallFunc FunctionToCallOne;
 
         
 
         #region Delegates&Properties        
         //Delegates
         private delegate IntPtr LowLevelKeyboardProc (int nCode, IntPtr wParam, IntPtr lParam);
+        public delegate void CallFunc(string param);
 
         //Propertites
         public static bool HookSet
@@ -58,11 +63,11 @@ namespace HandyMan.Scripts
             }
         }
 
-        public static Key LatestPressedkey
+        public static char LatestPressedkey
         {
             get
             {
-                return (Key)latestPressedKey;
+                return (char)latestPressedKey;
             }
         }
         #endregion
@@ -89,19 +94,23 @@ namespace HandyMan.Scripts
         }
 
         private static IntPtr CallbackHook(int nCode, IntPtr wParam, IntPtr lParam)
-        {
+        {           
+
             if (wParam == (IntPtr)WM_KEYDOWN)
             {
                 latestPressedKey = Marshal.ReadInt32(lParam);
             }
 
-            return CallNextHookEx(_hookId, nCode, wParam, lParam);
+            //return CallNextHookEx(_hookId, nCode, wParam, lParam);
+            return (IntPtr)1;
         }
 
     }
     
-    public class KeyRetyper
+    public class KeyRetyper : Window
     {
+
+
         public static char Retype(char input, Languages languageTo = Languages.Russian)
         {
             switch (languageTo)
@@ -111,6 +120,13 @@ namespace HandyMan.Scripts
                     break;
             }
             return 'a';
+        }
+
+
+        public int Listener (params string[] args)
+        {
+            ((TextBox)FindName(args[0])).Text = "" + LLproc.LatestPressedkey;
+            return 0;
         }
     }
 }
