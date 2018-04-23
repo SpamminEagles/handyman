@@ -13,16 +13,26 @@ namespace HandyMan.Scripts
         private static int tickLength = 50;
         private static Dictionary<TickSlice, string[]> Slices = new Dictionary<TickSlice, string[]>();
         private static Timer Clock  = new Timer();
+        public static Ticker LittleTicker = new Ticker();
 
-        private static void Tick(Object sender, ElapsedEventArgs e)
+        public static void Tick(Object sender, ElapsedEventArgs e)
         {
             TickSlice CurrentSlice;
             foreach (KeyValuePair<TickSlice, string[]> i in Slices)
-            {                
+            {
                 CurrentSlice = i.Key;
                 CurrentSlice(i.Value);
             }
-        }        
+        }    
+        
+        /*public void InvokeDispatcher(TickSlice CurrentSlice, KeyValuePair<TickSlice, string[]> i)
+        {
+            Dispatcher.Invoke(delegate
+            {
+                CurrentSlice = i.Key;
+                CurrentSlice(i.Value);
+            });
+        }*/
 
         public static void StartTicking ()
         {

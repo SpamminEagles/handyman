@@ -13,6 +13,8 @@ namespace HandyMan.Scripts
         #region DLL-Import
         [DllImport("user32.dll")]
         private static extern short VkKeyScan(char ch);
+        [DllImport("user32.dll")]
+        static extern int MapVirtualKey(uint uCode, uint uMapType);
         #endregion
 
         #region Declarations
@@ -27,13 +29,13 @@ namespace HandyMan.Scripts
         ParseVkeyType ParseOutputVkey;
 
         //The dictionary to use:
-        public Dictionary<char, char> CharDictionary;
+        public Dictionary<char, char> CharDictionary = KeyDictionaries.CirillycLatinKeys;
 
         #endregion
 
         //Contains constructor
         #region Initializers
-        public KeyRetyper(Languages Input, Languages Output)
+        public KeyRetyper(Languages Input = Languages.English, Languages Output = Languages.Russian)
         {
             ReInitialize(Input, Output);
         }
@@ -52,35 +54,12 @@ namespace HandyMan.Scripts
         //Get the proper parsers
         void SetParsers()
         {
-            //Parse input
-            switch (InputType)
-            {
-                case Languages.English:
-                    ParseInputChar = LatinCharParser;
-                    break;
-                case Languages.Russian:
-                    InputType = Languages.English;
-                    ParseInputChar = LatinCharParser;
-                    break;
+            //Parse input            
+            ParseInputChar = InputCharParser;                    
 
-                default:
-                    InputType = Languages.English;
-                    ParseInputChar = LatinCharParser;
-                    break;
-            }
-
-            //Parse output
-            switch (TargetOutput)
-            {
-                case Languages.Russian:
-                    ParseOutputVkey = CirillicVkeyParser;
-                    break;
-
-                default:
-                    ParseOutputVkey = CirillicVkeyParser;
-                    break;
-                  
-            }
+            //Parse output            
+            ParseOutputVkey = VkeyParser;
+                    
         }
 
         //Get the dictionary we actually need for converting characters between alphabets
@@ -101,18 +80,13 @@ namespace HandyMan.Scripts
         #region Converter functions (Parsers)
 
         //Input Parsers
-        char LatinCharParser(int Vkey)
+        char InputCharParser(int Vkey)
         {
-            return KeyDictionaries.LatinVkeyReversed[Vkey];
+            return Convert.ToChar(MapVirtualKey((uint)Vkey, 2));
         }
 
-            //Output parsers
-        int LatinVkeyParser(char character)
-        {
-            return KeyDictionaries.LatinVkey[character];
-        }
-
-        int CirillicVkeyParser(char character)
+            //Output parsers    
+        int VkeyParser(char character)
         {
             return VkKeyScan(character);
         }
@@ -125,7 +99,11 @@ namespace HandyMan.Scripts
             {
                 return CharDictionary[InputChar];
             }
-            return 'a';
+            else
+            {
+                return 'a';
+            }
+            return 'я';
         }
 
         #endregion
@@ -139,11 +117,11 @@ namespace HandyMan.Scripts
         #endregion
 
         #region Actual-Converting
-        public char ConvertKey(int Key)
+        public char ConvertKey(int Vkey)
         {
             return 
                 ParseTargetChar(
-                                ParseInputChar(Key));
+                                ParseInputChar(Vkey));
         }
 
         public char ConvertKey(char character) {
@@ -156,12 +134,15 @@ namespace HandyMan.Scripts
                                     ConvertKey(InputCharacter));
         }
 
-        public int GetoutputVkey(int InputVkey)
+        public int GetOutputVkey(int InputVkey)
         {
             return ParseOutputVkey(
                                     ConvertKey(InputVkey));
+            //return VkKeyScan(Convert.ToChar(MapVirtualKey((uint)InputVkey, 2)));
         }
 
         #endregion
     }
+
+    
 }

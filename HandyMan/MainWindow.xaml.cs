@@ -16,9 +16,9 @@ namespace HandyMan
         {
             InitializeComponent();
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            Scripts.LLproc.FunctionToCallOne = SetTestTextBox;
+            //Scripts.LLproc.FunctionToCallOne = SetTestTextBox;
 
-            Scripts.Ticker.StartTicking();
+            Scripts.Central.Setup();
         }
 
         ~MainWindow()
@@ -26,9 +26,9 @@ namespace HandyMan
             timer.Enabled = false;
         }
 
-        public void SetTestTextBox(string param)
+        public void SetTestTextBox(int param)
         {
-            ((TextBox)FindName("MenuTestTextBox")).Text = param;
+            ((TextBox)FindName("MenuTestTextBox")).Text = param.ToString();
             /*DebugPopup DBP = new DebugPopup();
             DBP.Show();*/
         }
@@ -56,7 +56,7 @@ namespace HandyMan
         {
             if (!Scripts.LLproc.HookSet)
             {
-                Scripts.LLproc.FunctionToCallOne = SetTestTextBox;
+                //Scripts.LLproc.FunctionToCallOnce = SetTestTextBox;
                 Scripts.LLproc.StartHook();
                 ((Button)sender).Content = "StopHook";
             }else
@@ -78,7 +78,7 @@ namespace HandyMan
             timer.Interval = 50;
             timer.AutoReset = true;
             timer.Elapsed += UpdateTestBox;
-            timer.Enabled = true;
+            //timer.Enabled = true;
         }
 
         private void UpdateTestBox(object sender, ElapsedEventArgs e)

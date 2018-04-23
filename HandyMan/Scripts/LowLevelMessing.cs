@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using HandyMan.Types;
 
 namespace HandyMan.Scripts
 {
@@ -39,14 +37,14 @@ namespace HandyMan.Scripts
         private static IntPtr _hookId = IntPtr.Zero;
         private static LowLevelKeyboardProc Proc = CallbackHook;
 
-        public static CallFunc FunctionToCallOne;
+        public static CallFunc FunctionToCallOnce;
 
 
 
         #region Delegates&Properties        
         //Delegates
         private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
-        public delegate void CallFunc(string param);
+        public delegate void CallFunc(int param);
 
         //Propertites
         public static bool HookSet
@@ -87,8 +85,8 @@ namespace HandyMan.Scripts
 
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
-                //latestPressedKey = Marshal.ReadInt32(lParam);
-                SetOutData(Marshal.ReadInt32(lParam));
+                latestPressedKey = Marshal.ReadInt32(lParam);
+                FunctionToCallOnce(Marshal.ReadInt32(lParam));
             }
 
             //return CallNextHookEx(_hookId, nCode, wParam, lParam);
@@ -103,7 +101,7 @@ namespace HandyMan.Scripts
 
     }
 
-    public static class LLKProcTrigger
+    public static class KeyPressSim
     {
         #region DLL-Imports
         [DllImport("user32.dll")]
@@ -111,5 +109,18 @@ namespace HandyMan.Scripts
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
         #endregion
+
+        public static void SimulateKeyOnWindow(IntPtr hWnd, int Vkey)
+        {
+            //WM_KEYDOWN = 0x0100 - the message
+
+            PostMessage(hWnd, 0x0100, Vkey, 0);
+
+        }
+
+        public static void SimulateKeyOnForegroundWindow(int Vkey)
+        {
+            SimulateKeyOnWindow(GetForegroundWindow(), Vkey);
+        }
     }
 }
