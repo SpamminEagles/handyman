@@ -22,8 +22,9 @@
             <TextBlock Height="31" Margin="41.371,170.833,44.871,0" TextWrapping="Wrap" Text="Tools" VerticalAlignment="Top" Foreground="White" FontSize="21.333" FrameworkElement.FlowDirection="RightToLeft" HorizontalAlignment="Center" d:LayoutOverrides="LeftMargin, RightMargin"/>
             <Separator Height="9.5" Margin="15,206.833,15,0" VerticalAlignment="Top" Width="120"/>
             <Button Content="StandardTools" x:Name="MB_Notebook_Copy" Height="31.5" Margin="15,221.333,15,0" VerticalAlignment="Top" Background="#26FFFFFF" FontSize="16" Foreground="White" BorderBrush="#00000000"/>
-            <Label x:Name="MenuTestTextBox" Content="" HorizontalAlignment="Left" Margin="41,302,0,0" VerticalAlignment="Top" Foreground="White" Height="64" Width="64" FontSize="22"/>
+            <TextBlock x:Name="MenuTestTextBox" Text="a" HorizontalAlignment="Left" Margin="41,302,0,0" VerticalAlignment="Top" Foreground="White" Height="64" Width="64" FontSize="22" Loaded="MenuTestTextBox_Loaded"/>
             <Button x:Name="StartStopProc" Content="StartProc" HorizontalAlignment="Left" Margin="41,414,0,0" VerticalAlignment="Top" Width="75" Click="StartStopProc_Click"/>
+            <Button x:Name="quit" Content="Quit" HorizontalAlignment="Left" Margin="41,472,0,0" VerticalAlignment="Top" Width="75" Click="quit_Click"/>
         </Grid>
         <Frame Name="Frame" DockPanel.Dock="Right" Background="#FFEAEAA0">
 

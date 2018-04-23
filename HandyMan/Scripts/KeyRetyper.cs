@@ -1,132 +1,167 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using HandyMan.Types;
+
 namespace HandyMan.Scripts
 {
     //This class is created with the information I found over here: https://blogs.msdn.microsoft.com/toub/2006/05/03/low-level-keyboard-hook-in-c/
-    public static class LLproc
-    {       
-
-        #region DllImports
-        //Stuff that will establish the Hook
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
-
-        //Stuff that will stop the already established hook!
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        //Stuff that will get the modulehandler
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        //Next hook in the chain
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
-        #endregion
-
-        //Variables
-        private const int WH_KEYBOARD_LL = 13;  //Constant that defines Hook mode of SetWindowsHookExt(), in this case it's a keyboard hook-a low level one! needed as a parameter
-        public const int WM_KEYDOWN = 0x0100;   //#define-d in the cpp file - or header dunno' - now is needed as a parameter
-
-        private static bool hookSet = false;    //readonly public via Property
-        private static int latestPressedKey;
-
-        private static IntPtr _hookId = IntPtr.Zero;
-        private static LowLevelKeyboardProc Proc = CallbackHook;
-
-        public static CallFunc FunctionToCallOne;
-
-        
-
-        #region Delegates&Properties        
-        //Delegates
-        private delegate IntPtr LowLevelKeyboardProc (int nCode, IntPtr wParam, IntPtr lParam);
-        public delegate void CallFunc(string param);
-
-        //Propertites
-        public static bool HookSet
-        {
-            get
-            {
-                return hookSet;
-            }
-        }
-
-        public static char LatestPressedkey
-        {
-            get
-            {
-                return (char)latestPressedKey;
-            }
-        }
-        #endregion
-        
-        //Functions
-        public static void StartHook()
-        {
-            using (Process currentProcess = Process.GetCurrentProcess())
-            using (ProcessModule currentModule = currentProcess.MainModule)
-            {
-                _hookId = SetWindowsHookEx(WH_KEYBOARD_LL, Proc, GetModuleHandle(currentModule.ModuleName), 0);
-            }
-
-            hookSet = true;
-        }
-
-        public static void StopHook()
-        {
-            if (hookSet)
-            {
-                UnhookWindowsHookEx(_hookId);
-                hookSet = false;
-            }
-        }
-
-        private static IntPtr CallbackHook(int nCode, IntPtr wParam, IntPtr lParam)
-        {           
-
-            if (wParam == (IntPtr)WM_KEYDOWN)
-            {
-                latestPressedKey = Marshal.ReadInt32(lParam);
-            }
-
-            //return CallNextHookEx(_hookId, nCode, wParam, lParam);
-            return (IntPtr)1;
-        }
-
-    }
     
-    public class KeyRetyper : Window
+    
+    public class KeyRetyper
     {
+        #region DLL-Import
+        [DllImport("user32.dll")]
+        private static extern short VkKeyScan(char ch);
+        #endregion
 
+        #region Declarations
+        //The input type is the alphabet that we get the data, the target output is the alphabet in which we want the result
+        Languages InputType = Languages.English;  
+        Languages TargetOutput = Languages.Russian;        
 
-        public static char Retype(char input, Languages languageTo = Languages.Russian)
+        //The delegates I can later use easily to convert anything to the proper form
+        public delegate char ParseCharType (int Vkey);
+        ParseCharType ParseInputChar;
+        public delegate int ParseVkeyType(char character);
+        ParseVkeyType ParseOutputVkey;
+
+        //The dictionary to use:
+        public Dictionary<char, char> CharDictionary;
+
+        #endregion
+
+        //Contains constructor
+        #region Initializers
+        public KeyRetyper(Languages Input, Languages Output)
         {
-            switch (languageTo)
+            ReInitialize(Input, Output);
+        }
+
+        public bool ReInitialize(Languages Input, Languages Output)
+        {
+            InputType = Input;
+            TargetOutput = Output;
+
+            SetParsers();
+            CollecDictionary();
+
+            return true; //If I later want to add feedback on success
+        }
+
+        //Get the proper parsers
+        void SetParsers()
+        {
+            //Parse input
+            switch (InputType)
+            {
+                case Languages.English:
+                    ParseInputChar = LatinCharParser;
+                    break;
+                case Languages.Russian:
+                    InputType = Languages.English;
+                    ParseInputChar = LatinCharParser;
+                    break;
+
+                default:
+                    InputType = Languages.English;
+                    ParseInputChar = LatinCharParser;
+                    break;
+            }
+
+            //Parse output
+            switch (TargetOutput)
             {
                 case Languages.Russian:
-                    
+                    ParseOutputVkey = CirillicVkeyParser;
                     break;
+
+                default:
+                    ParseOutputVkey = CirillicVkeyParser;
+                    break;
+                  
+            }
+        }
+
+        //Get the dictionary we actually need for converting characters between alphabets
+        void CollecDictionary()
+        {
+            if (InputType == Languages.English && TargetOutput == Languages.Russian)
+            {
+                CharDictionary = KeyDictionaries.CirillycLatinKeys;
+            }
+            else   //A "default" block
+            {
+                CharDictionary = KeyDictionaries.CirillycLatinKeys;
+            }
+        }
+
+        #endregion
+
+        #region Converter functions (Parsers)
+
+        //Input Parsers
+        char LatinCharParser(int Vkey)
+        {
+            return KeyDictionaries.LatinVkeyReversed[Vkey];
+        }
+
+            //Output parsers
+        int LatinVkeyParser(char character)
+        {
+            return KeyDictionaries.LatinVkey[character];
+        }
+
+        int CirillicVkeyParser(char character)
+        {
+            return VkKeyScan(character);
+        }
+        
+            //Midway
+
+        char ParseTargetChar (char InputChar)
+        {
+            if (VerifyCharacter(InputChar))
+            {
+                return CharDictionary[InputChar];
             }
             return 'a';
         }
 
+        #endregion
 
-        public int Listener (params string[] args)
+        #region Helpers
+        //Verify that this character is actually part the Dictionaries
+        public static bool VerifyCharacter(char character)
         {
-            ((TextBox)FindName(args[0])).Text = "" + LLproc.LatestPressedkey;
-            return 0;
+            return true;
         }
+        #endregion
+
+        #region Actual-Converting
+        public char ConvertKey(int Key)
+        {
+            return 
+                ParseTargetChar(
+                                ParseInputChar(Key));
+        }
+
+        public char ConvertKey(char character) {
+            return ParseTargetChar(character);
+        }
+
+        public int GetOutputVkey(char InputCharacter)
+        {
+            return ParseOutputVkey(
+                                    ConvertKey(InputCharacter));
+        }
+
+        public int GetoutputVkey(int InputVkey)
+        {
+            return ParseOutputVkey(
+                                    ConvertKey(InputVkey));
+        }
+
+        #endregion
     }
 }

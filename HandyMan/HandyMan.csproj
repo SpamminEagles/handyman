@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="Scripts\KeyDictionary.cs" />
     <Compile Include="Scripts\KeyRetyper.cs" />
+    <Compile Include="Scripts\LowLevelMessing.cs" />
     <Compile Include="Scripts\Ticker.cs" />
     <Compile Include="Scripts\Types.cs" />
     <Page Include="DebugPopup.xaml">

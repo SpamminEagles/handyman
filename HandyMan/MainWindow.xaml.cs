@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 namespace HandyMan
 {
     /// <summary>
@@ -19,12 +11,19 @@ namespace HandyMan
     /// </summary>
     public partial class MainWindow : Window
     {
+        Timer timer = new Timer();
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             Scripts.LLproc.FunctionToCallOne = SetTestTextBox;
 
-            
+            Scripts.Ticker.StartTicking();
+        }
+
+        ~MainWindow()
+        {
+            timer.Enabled = false;
         }
 
         public void SetTestTextBox(string param)
@@ -66,5 +65,40 @@ namespace HandyMan
                 ((Button)sender).Content = "StartHook";
             }
         }
+
+
+
+        private void quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MenuTestTextBox_Loaded(object sender, RoutedEventArgs e)
+        {            
+            timer.Interval = 50;
+            timer.AutoReset = true;
+            timer.Elapsed += UpdateTestBox;
+            timer.Enabled = true;
+        }
+
+        private void UpdateTestBox(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                Dispatcher.Invoke(delegate () 
+                                 {
+                                     ((TextBlock)FindName("MenuTestTextBox")).Text = ((Key)Scripts.LLproc.LatestPressedKey).ToString();
+                                     /*string lul = VkKeyScan('a').ToString();
+                                     lul += " " + VkKeyScan('b').ToString();
+                                     lul += " " + VkKeyScan('c').ToString();
+                                     lul += " " + VkKeyScan('ő').ToString();
+
+                                     ((TextBlock)FindName("MenuTestTextBox")).Text = lul;*/
+                                 });
+            }
+            catch { }
+        }
+
+        
     }
 }

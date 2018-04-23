@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Threading;
 
 namespace HandyMan.Scripts
 {
-    class Ticker
+    public class Ticker
     {
         private static int tickLength = 50;
         private static Dictionary<TickSlice, string[]> Slices = new Dictionary<TickSlice, string[]>();
@@ -17,9 +18,9 @@ namespace HandyMan.Scripts
         {
             TickSlice CurrentSlice;
             foreach (KeyValuePair<TickSlice, string[]> i in Slices)
-            {
+            {                
                 CurrentSlice = i.Key;
-                CurrentSlice(i.Value);                
+                CurrentSlice(i.Value);
             }
         }        
 

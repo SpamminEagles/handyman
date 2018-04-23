@@ -49,3 +49,5 @@ C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\HandyMan.csproj.CoreCompileInputs.cache
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\HandyMan.exe
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\HandyMan.pdb
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\DebugPopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\DebugPopup.baml
