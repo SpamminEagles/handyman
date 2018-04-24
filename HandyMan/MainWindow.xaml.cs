@@ -87,7 +87,7 @@ namespace HandyMan
             {
                 Dispatcher.Invoke(delegate () 
                                  {
-                                     ((TextBlock)FindName("MenuTestTextBox")).Text = ((Key)Scripts.LLproc.LatestPressedKey).ToString();
+                                     //((TextBlock)FindName("MenuTestTextBox")).Text = ((Key)Scripts.LLproc.LatestPressedKey).ToString();
                                      /*string lul = VkKeyScan('a').ToString();
                                      lul += " " + VkKeyScan('b').ToString();
                                      lul += " " + VkKeyScan('c').ToString();

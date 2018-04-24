@@ -6,7 +6,7 @@ namespace HandyMan.Scripts
 {
     public static class LLproc
     {
-
+        //This class is created with the information I found over here: https://blogs.msdn.microsoft.com/toub/2006/05/03/low-level-keyboard-hook-in-c/
         #region DllImports
         //Stuff that will establish the Hook
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -38,8 +38,7 @@ namespace HandyMan.Scripts
         private static LowLevelKeyboardProc Proc = CallbackHook;
 
         public static CallFunc FunctionToCallOnce;
-
-
+                
 
         #region Delegates&Properties        
         //Delegates
@@ -85,7 +84,7 @@ namespace HandyMan.Scripts
 
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
-                latestPressedKey = Marshal.ReadInt32(lParam);
+                //latestPressedKey = Marshal.ReadInt32(lParam);
                 FunctionToCallOnce(Marshal.ReadInt32(lParam));
             }
 
@@ -110,12 +109,14 @@ namespace HandyMan.Scripts
         static extern IntPtr GetForegroundWindow();
         #endregion
 
+        public static readonly uint WM_KEYDOWN = 0x0100;
+
         public static void SimulateKeyOnWindow(IntPtr hWnd, int Vkey)
         {
             //WM_KEYDOWN = 0x0100 - the message
 
-            PostMessage(hWnd, 0x0100, Vkey, 0);
-
+            PostMessage(hWnd, WM_KEYDOWN, Vkey, 0);
+            
         }
 
         public static void SimulateKeyOnForegroundWindow(int Vkey)

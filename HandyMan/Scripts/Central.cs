@@ -10,18 +10,23 @@ namespace HandyMan.Scripts
 {
     public static class Central
     {
+        #region Setup and main variables
         static bool setup = false;
+        static KeyRetyper KR = new KeyRetyper();
+        #endregion
+
         public static void Setup()
         {
             if (!setup)
             {
                 Ticker.StartTicking();
 
-                LLproc.FunctionToCallOnce = MiscFunctions.SwapKeys;
+                LLproc.FunctionToCallOnce = KR.TriggerTransfomedKey;
             }
 
             setup = true;
         }
+
     }
 
     public class MiscFunctions
@@ -30,7 +35,7 @@ namespace HandyMan.Scripts
 
         public static void SwapKeys(int param)
         {            
-            KeyPressSim.SimulateKeyOnForegroundWindow(KR.GetOutputVkey(param));
+            //KeyPressSim.SimulateKeyOnForegroundWindow(KR.GetOutputVkey(param));
         }
     }
 }

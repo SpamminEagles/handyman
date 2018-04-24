@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="backup\b1.cs" />
     <Compile Include="DebugPopup.xaml.cs">
       <DependentUpon>DebugPopup.xaml</DependentUpon>
     </Compile>

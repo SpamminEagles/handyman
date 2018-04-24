@@ -1,41 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 using HandyMan.Types;
 
 namespace HandyMan.Scripts
 {
-    //This class is created with the information I found over here: https://blogs.msdn.microsoft.com/toub/2006/05/03/low-level-keyboard-hook-in-c/
-    
-    
     public class KeyRetyper
     {
-        #region DLL-Import
-        [DllImport("user32.dll")]
-        private static extern short VkKeyScan(char ch);
-        [DllImport("user32.dll")]
-        static extern int MapVirtualKey(uint uCode, uint uMapType);
-        #endregion
-
         #region Declarations
         //The input type is the alphabet that we get the data, the target output is the alphabet in which we want the result
-        Languages InputType = Languages.English;  
-        Languages TargetOutput = Languages.Russian;        
-
-        //The delegates I can later use easily to convert anything to the proper form
-        public delegate char ParseCharType (int Vkey);
-        ParseCharType ParseInputChar;
-        public delegate int ParseVkeyType(char character);
-        ParseVkeyType ParseOutputVkey;
+        Languages InputType = Languages.Hungarian;  
+        Languages TargetOutput = Languages.Russian;
 
         //The dictionary to use:
         public Dictionary<char, char> CharDictionary = KeyDictionaries.CirillycLatinKeys;
-
+        private char[] KeyArray;
         #endregion
 
         //Contains constructor
         #region Initializers
-        public KeyRetyper(Languages Input = Languages.English, Languages Output = Languages.Russian)
+        public KeyRetyper(Languages Input = Languages.Hungarian, Languages Output = Languages.Russian)
         {
             ReInitialize(Input, Output);
         }
@@ -44,23 +29,13 @@ namespace HandyMan.Scripts
         {
             InputType = Input;
             TargetOutput = Output;
-
-            SetParsers();
+            
             CollecDictionary();
+            KeyArray = new char[CharDictionary.Count];
+            CharDictionary.Keys.CopyTo(KeyArray, 0);
 
             return true; //If I later want to add feedback on success
-        }
-
-        //Get the proper parsers
-        void SetParsers()
-        {
-            //Parse input            
-            ParseInputChar = InputCharParser;                    
-
-            //Parse output            
-            ParseOutputVkey = VkeyParser;
-                    
-        }
+        }        
 
         //Get the dictionary we actually need for converting characters between alphabets
         void CollecDictionary()
@@ -77,72 +52,48 @@ namespace HandyMan.Scripts
 
         #endregion
 
-        #region Converter functions (Parsers)
-
-        //Input Parsers
-        char InputCharParser(int Vkey)
+        #region Where the magic happens
+        public int SwapKeys(int Vkey)
         {
-            return Convert.ToChar(MapVirtualKey((uint)Vkey, 2));
+            return
+            //Get the VKey (char->key->VKey)
+            KeyInterop.VirtualKeyFromKey(
+                //Get the transformed char
+                (Key)ParseTargetChar(
+                    //Get the char to convert (VKey->Key->char)
+                    (char)KeyInterop.KeyFromVirtualKey(Vkey)));
         }
 
-            //Output parsers    
-        int VkeyParser(char character)
+        public void TriggerTransfomedKey(int VKey)
         {
-            return VkKeyScan(character);
-        }
-        
-            //Midway
-
-        char ParseTargetChar (char InputChar)
-        {
-            if (VerifyCharacter(InputChar))
+            if (CheckIfToTransform(VKey))
             {
-                return CharDictionary[InputChar];
+                KeyPressSim.SimulateKeyOnForegroundWindow(SwapKeys(VKey));
             }
             else
             {
-                return 'a';
+                KeyPressSim.SimulateKeyOnForegroundWindow(VKey);
             }
-            return 'я';
         }
 
-        #endregion
-
-        #region Helpers
-        //Verify that this character is actually part the Dictionaries
-        public static bool VerifyCharacter(char character)
+        char ParseTargetChar(char InputChar)
         {
-            return true;
+            //return CharDictionary[InputChar];
+            return 'б';
         }
-        #endregion
 
-        #region Actual-Converting
-        public char ConvertKey(int Vkey)
+        //If the user presses a key that is not part of the transformation table, it should be called without a touch
+        public bool CheckIfToTransform(int VKey)
         {
-            return 
-                ParseTargetChar(
-                                ParseInputChar(Vkey));
+            foreach (char i in KeyArray)
+            {
+                if( i == (char)KeyInterop.KeyFromVirtualKey(VKey))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-
-        public char ConvertKey(char character) {
-            return ParseTargetChar(character);
-        }
-
-        public int GetOutputVkey(char InputCharacter)
-        {
-            return ParseOutputVkey(
-                                    ConvertKey(InputCharacter));
-        }
-
-        public int GetOutputVkey(int InputVkey)
-        {
-            return ParseOutputVkey(
-                                    ConvertKey(InputVkey));
-            //return VkKeyScan(Convert.ToChar(MapVirtualKey((uint)InputVkey, 2)));
-        }
-
         #endregion
     }
-
-    
 }
