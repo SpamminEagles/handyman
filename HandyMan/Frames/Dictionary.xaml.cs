@@ -16,6 +16,8 @@ using System.Windows.Threading;
 using HandyMan;
 using HandyMan.Types;
 
+using Handyman.Frames.Dictionary.Lib;
+
 namespace HandyMan.Frames
 {
     /// <summary>
@@ -28,13 +30,19 @@ namespace HandyMan.Frames
         {
             InitializeComponent();
 
-            Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => { Setup(); }));
+            Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => { Setup(); }));                     
+            
         }
 
         //Data
         RadioButton[] PartsOfSpeech = new RadioButton[3];
         TPartsOfSpeech ChosenPOS;
         Languages ChoosenLang;
+        RussianConjugation conjugation = RussianConjugation.Regular1;
+
+        //UI elements
+        StackPanel ForeignLan;
+        StackPanel MotherLan;
 
         void Setup()
         {
@@ -42,7 +50,22 @@ namespace HandyMan.Frames
             PartsOfSpeech[0] =  (RadioButton)FindName("RBPOSNoun");
             PartsOfSpeech[1] = (RadioButton)FindName("RBPOSVerb");
             PartsOfSpeech[2] = (RadioButton)FindName("RBPOSAdjective");
+
+            ForeignLan = (StackPanel)FindName("ForLanListSearch");
+            MotherLan = (StackPanel)FindName("MothLanListSearch");
+
+            //GenerateLists();
         }
+
+        private void GenerateLists(string[] words, string[] tags)
+        {
+            for (int i = 0; i < words.Length; i++)
+            {
+                //ForeignLan.Children.Add(Lib.GetListElement(i));
+            }
+        }
+
+        
 
         private void RBPOS_Checked(object sender, RoutedEventArgs e)
         {
@@ -93,7 +116,60 @@ namespace HandyMan.Frames
 
         private void SaveEntry(object sender, RoutedEventArgs e)
         {
+            switch (ChosenPOS)
+            {
+                case TPartsOfSpeech.Noun:
+                    RussianNoun noun = new RussianNoun();
+                    noun.Word = ((TextBox)FindName("AWNTextBox")).Text;
+                    noun.Plural = ((TextBox)FindName("NounPluralName")).Text;
+                    noun.Meanings = Lib.SplitMeanings(((TextBox)FindName("MeaningNoun")).Text);
 
+                    ClearBoxes("AWNTextBox", "NounPluralName", "MeaningNoun");
+                    Database.RussianDictionary.AddNoun(noun);
+                    break;
+                case TPartsOfSpeech.Adjective:
+                    RussianAdjective adjective = new RussianAdjective();
+                    adjective.Word = ((TextBox)FindName("AWATextBox")).Text;
+                    adjective.Masculine = ((TextBox)FindName("MasculineTB")).Text;
+                    adjective.Feminine = ((TextBox)FindName("FeminineTB")).Text;
+                    adjective.Neuter = ((TextBox)FindName("NeuterTB")).Text;
+                    adjective.Meanings = Lib.SplitMeanings(((TextBox)FindName("MeaningAdjective")).Text);
+
+                    ClearBoxes("AWATextBox", "MasculineTB", "FeminineTB", "NeuterTB", "MeaningAdjective");
+                    Database.RussianDictionary.AddAdjective(adjective);
+                    break;
+                case TPartsOfSpeech.Verb:
+                    RussianVerb verb = new RussianVerb();
+                    verb.Continous.Word = ((TextBox)FindName("AWVTextBoxCon")).Text;
+                    verb.Continous.Conjugation = conjugation;
+                    switch (verb.Continous.Conjugation)
+                    {
+                        case RussianConjugation.Regular1:
+                            verb.Continous.S1 = "Regular I";
+                            verb.Continous.S2 = "Regular I";
+                            verb.Continous.P3 = "Regular I";
+                            break;
+                        case RussianConjugation.Regular2:
+                            verb.Continous.S1 = "Regular II";
+                            verb.Continous.S2 = "Regular II";
+                            verb.Continous.P3 = "Regular II";
+                            break;
+
+                        default:
+                            verb.Continous.S1 = ((TextBox)FindName("ConConS1")).Text;
+                            verb.Continous.S2 = ((TextBox)FindName("ConConS2")).Text;
+                            verb.Continous.P3 = ((TextBox)FindName("ConConP3")).Text;
+                            break;
+                    }
+                    verb.Perfect.S1 = ((TextBox)FindName("PerConS1")).Text;
+                    verb.Perfect.S2 = ((TextBox)FindName("PerConS2")).Text;
+                    verb.Perfect.P3 = ((TextBox)FindName("PerConP3")).Text;
+
+                    ClearBoxes("AWVTextBoxCon", "ConConS1", "ConConS2", "ConConP3", "PerConS2", "PerConS1", "PerConP3");
+                    UncheckCon();
+                    Database.RussianDictionary.AddVerb(verb);
+                    break;
+            }
         }
 
         private void EnableSave(object sender, DependencyPropertyChangedEventArgs e)
@@ -118,5 +194,37 @@ namespace HandyMan.Frames
             ((TextBox)FindName("ConConS2")).IsEnabled = enable;
             ((TextBox)FindName("ConConP3")).IsEnabled = enable;
         }
+
+        private void Con_Checked(object sender, RoutedEventArgs e)
+        {
+            switch (((RadioButton)sender).Name)
+            {
+                case "RBConReg1":
+                    conjugation = RussianConjugation.Regular1;
+                    break;
+                case "RBConReg2":
+                    conjugation = RussianConjugation.Regular2;
+                    break;
+                case "RBConIrreg":
+                    conjugation = RussianConjugation.Irregular;
+                    break;
+            }
+        }
+
+        private void UncheckCon ()
+        {
+            ((RadioButton)FindName("RBConReg1")).IsChecked = false;
+            ((RadioButton)FindName("RBConReg2")).IsChecked = false;
+            ((RadioButton)FindName("RBConIrreg")).IsChecked = false;
+        }
+
+        private void ClearBoxes(params string[] name)
+        {
+            foreach (string i in name)
+            {
+                ((TextBox)FindName(i)).Text = "";
+            }
+        }
+
     }
 }

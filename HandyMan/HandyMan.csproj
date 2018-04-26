@@ -58,6 +58,9 @@
     <Compile Include="DebugPopup.xaml.cs">
       <DependentUpon>DebugPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frames\Lib.cs">
+      <DependentUpon>Dictionary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\Central.cs" />
     <Compile Include="Scripts\KeyDictionary.cs" />
     <Compile Include="Scripts\KeyRetyper.cs" />

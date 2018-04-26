@@ -18,24 +18,30 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
-                    <!--ColumnDefinition Width="397*"/-->
-
+                    
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="DicSearchForeign" Margin="55,14,0,36" TextWrapping="Wrap" Text="*" MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20" HorizontalAlignment="Left" Width="200" Grid.Column="0" BorderBrush="#FFD8D883" SelectionBrush="{x:Null}" Foreground="White" Background="{x:Null}" Grid.RowSpan="2"/>
-                <Button Name="DicStartSearchForeign" Content="Search" Margin="260,13,107,1" MaxHeight="20" MaxWidth="52" HorizontalContentAlignment="Center" Grid.Column="0" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB900FF" />
-                <TextBox x:Name="DicSearchMother" Margin="46,18,126,0" TextWrapping="Wrap" Text="*" Grid.Column="1" MinWidth="200" MinHeight="20" BorderBrush="#FFD8D883" SelectionBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
-                <Button x:Name="DicStartSearchMother" Content="Search" Grid.Column="1" Margin="0,18,69,0" HorizontalAlignment="Right" Width="52" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB900FF"/>
+                <TextBox x:Name="DicSearchForeign" Margin="55,14,0,36" TextWrapping="Wrap" Text="*" MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20" HorizontalAlignment="Left" Width="200" Grid.Column="0" BorderBrush="#FFD8D883" SelectionBrush="{x:Null}" Foreground="White" Background="{x:Null}" Grid.RowSpan="2"/>
+                <Button x:Name="DicStartSearchForeign" Content="Search" Margin="260,13,107,1" MaxHeight="20" MaxWidth="52" HorizontalContentAlignment="Center" Grid.Column="0" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB900FF" />
+                <TextBox x:Name="DicSearchMother" Visibility="Hidden" Margin="46,18,126,0" TextWrapping="Wrap" Text="*" Grid.Column="1" MinWidth="200" MinHeight="20" BorderBrush="#FFD8D883" SelectionBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                <Button x:Name="DicStartSearchMother" Visibility="Hidden" Content="Search" Grid.Column="1" Margin="0,18,69,0" HorizontalAlignment="Right" Width="52" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB900FF"/>
                 <TextBlock Name="TitleDicForeign" Margin="126,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Foreign language" HorizontalAlignment="Left" Width="143" FontSize="16" FontFamily="Segoe UI Semibold" Grid.Column="0" Foreground="White"/>
                 <TextBlock Name="Title" Margin="147,10,126,0" Grid.Row="1" TextWrapping="Wrap" Text="Mother Language" Grid.Column="1" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White"/>
+                
+                <StackPanel Name="ForLanListSearch" Grid.Row="3" Grid.Column="0" Background="#33DCDCDC">
+                    <!--StackPanel.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="45" Background="#33DEDEDE">
+                                <Label Content="" Margin="10,10,10,10" Foreground="White" FontSize="14" BorderBrush="White" Background="{x:Null}"></Label>
+                            </Grid>
+                        </DataTemplate>
+                    </StackPanel.ItemTemplate-->
+                    
+                </StackPanel>
 
-                <Grid Name="ForLanListSearch" Grid.Row="3" Grid.Column="0" Background="#33DCDCDC">
+                <StackPanel Name="MothLanListSearch" Grid.Row="3" Grid.Column="1" Background="#33DCDCDC">
 
-                </Grid>
-
-                <Grid Name="MothLanListSearch" Grid.Row="3" Grid.Column="1" Background="#33DCDCDC">
-
-                </Grid>
+                </StackPanel>
 
             </Grid>
         </TabItem>
@@ -57,13 +63,15 @@
                 </ComboBox>
                 <Label Content="Language:" HorizontalAlignment="Left" Margin="26,124,0,0" VerticalAlignment="Top" Width="134"/>
 
-                <Grid Name="ANounGrid" Visibility="Visible" Margin="200,182,10,50" Background="#FFE8E8FF">
+                <Grid Name="ANounGrid" Visibility="Hidden" Margin="200,182,10,50" Background="#FFE8E8FF">
                     <Label Content="Add a Noun" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" FontSize="18"/>
                     <Label Content="2) Word:" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="65"/>
                     <TextBox x:Name="AWNTextBox" HorizontalAlignment="Left" Height="23" Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" IsKeyboardFocusedChanged="EnableSave"/>
                     <CheckBox Content="Irregular plural" HorizontalAlignment="Left" Margin="255,80,0,0" VerticalAlignment="Top"/>
                     <Label Content="3) Any unusal properties?" HorizontalAlignment="Left" Margin="255,49,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="392,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+                    <TextBox x:Name="NounPluralName" HorizontalAlignment="Left" Height="23" Margin="392,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+                    <TextBox x:Name="MeaningNoun" HorizontalAlignment="Left" Height="23" Margin="255,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325"/>
+                    <Label x:Name="label" Content="4) Meaning(s):" HorizontalAlignment="Left" Margin="255,132,0,0" VerticalAlignment="Top" Width="120"/>
                 </Grid>
 
                 <Grid Name="AVerbGrid" Visibility="Hidden" Margin="200,182,10,50" Background="#FFE8E8FF">
@@ -72,8 +80,8 @@
                     <TextBox x:Name="AWVTextBoxCon" HorizontalAlignment="Left" Height="23" Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" IsKeyboardFocusedChanged="EnableSave"/>
                     <Label Content="3) Conjugation" HorizontalAlignment="Left" Margin="255,49,0,0" VerticalAlignment="Top"/>
                     <Grid>
-                        <RadioButton x:Name="RBConReg1" Content="Regular I" HorizontalAlignment="Left" Margin="261,79,0,0" VerticalAlignment="Top" Width="80"/>
-                        <RadioButton Content="Regular II" HorizontalAlignment="Left" Margin="261,99,0,0" VerticalAlignment="Top" Width="80"/>
+                        <RadioButton x:Name="RBConReg1" Content="Regular I" HorizontalAlignment="Left" Margin="261,79,0,0" VerticalAlignment="Top" Width="80" Checked="Con_Checked"/>
+                        <RadioButton Content="RBConReg2" HorizontalAlignment="Left" Margin="261,99,0,0" VerticalAlignment="Top" Width="80"/>
                         <RadioButton x:Name="RBConIrreg" Content="Irregular" HorizontalAlignment="Left" Margin="261,119,0,0" VerticalAlignment="Top" Width="80" Checked="RBConIrreg_Checked"/>
                         <TextBox x:Name="ConConS1" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
                         <TextBox x:Name="ConConS2" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
@@ -92,6 +100,8 @@
 
                     </Grid>
                     <TextBox x:Name="AWVTextBoxPer" HorizontalAlignment="Left" Height="23" Margin="10,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" IsKeyboardFocusedChanged="EnableSave"/>
+                    <TextBox x:Name="MeaningVerb" HorizontalAlignment="Left" Height="23" Margin="10,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325"/>
+                    <Label x:Name="label_Copy" Content="6) Meaning(s):" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" Width="120"/>
                 </Grid>
 
                 <Grid Name="AAdjectiveGrid" Visibility="Hidden" Margin="200,182,10,50" Background="#FFE8E8FF">
@@ -99,12 +109,14 @@
                     <Label Content="2) Word:" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="65"/>
                     <TextBox x:Name="AWATextBox" HorizontalAlignment="Left" Height="23" Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" IsKeyboardFocusedChanged="EnableSave"/>
                     <Label Content="3) Forms" HorizontalAlignment="Left" Margin="255,49,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="392,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+                    <TextBox x:Name="MasculineTB" HorizontalAlignment="Left" Height="23" Margin="392,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
                     <Label Content="Masculine" HorizontalAlignment="Left" Margin="255,80,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="392,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+                    <TextBox x:Name="FeminineTB" HorizontalAlignment="Left" Height="23" Margin="393,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
                     <Label Content="Feminine" HorizontalAlignment="Left" Margin="255,111,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="392,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+                    <TextBox x:Name="NeuterTB" HorizontalAlignment="Left" Height="23" Margin="393,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
                     <Label Content="Neuter" HorizontalAlignment="Left" Margin="255,142,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="MeaningAdjective" HorizontalAlignment="Left" Height="23" Margin="255,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325"/>
+                    <Label x:Name="label_Copy1" Content="4) Meaning(s):" HorizontalAlignment="Left" Margin="255,222,0,0" VerticalAlignment="Top" Width="120"/>
                 </Grid>
 
                 <Button x:Name="SaveEntryButton" IsEnabled="False" Content="Save" HorizontalAlignment="Left" Margin="753,130,0,0" VerticalAlignment="Top" Width="75" Click="SaveEntry"/>
@@ -112,7 +124,9 @@
             </Grid>
         </TabItem>
         <TabItem Header="Practice" Width="60.667" Height="22" HorizontalAlignment="Left" Margin="8,-0.5,-12,0.5" BorderBrush="#00000000" Background="#4CFFFFFF">
-            <Grid Background="#A7FFFFFF"></Grid>
+            <Grid Background="#A7FFFFFF">
+                <Label x:Name="label1" Content="Feature coming soon!" HorizontalAlignment="Left" Margin="71,71,0,0" VerticalAlignment="Top" Height="65" Width="331"/>
+            </Grid>
         </TabItem>
     </TabControl>
 
