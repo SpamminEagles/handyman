@@ -1,0 +1,21 @@
+﻿<Window x:Class="HandyMan.Popups.RussianAdjectivePopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HandyMan.Popups"
+        mc:Ignorable="d"
+        Title="RussianAdjectivePopup" Height="303.015" Width="558.04" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label x:Name="Title" Content="N/A" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="49" Width="149" FontSize="24" Loaded="Title_Loaded"/>
+        <Label x:Name="label1" Content="Masculine:" HorizontalAlignment="Left" Margin="121,64,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="label1_Copy" Content="Feminine:" HorizontalAlignment="Left" Margin="121,93,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="label1_Copy1" Content="Neuter:" HorizontalAlignment="Left" Margin="121,122,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="Mascuine" Content="N/A" HorizontalAlignment="Left" Margin="244,66,0,0" VerticalAlignment="Top" Width="268" Loaded="Mascuine_Loaded"/>
+        <Label x:Name="Feminine" Content="N/A" HorizontalAlignment="Left" Margin="244,95,0,0" VerticalAlignment="Top" Width="268" Loaded="Feminine_Loaded"/>
+        <Label x:Name="Neuter" Content="N/A" HorizontalAlignment="Left" Margin="244,124,0,0" VerticalAlignment="Top" Width="268" Loaded="Neuter_Loaded"/>
+        <Label x:Name="label" Content="Meanings:" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="Meanings" Content="N/A" HorizontalAlignment="Left" Margin="121,182,0,0" VerticalAlignment="Top" Width="391" Loaded="Meanings_Loaded"/>
+
+    </Grid>
+</Window>

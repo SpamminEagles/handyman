@@ -11,26 +11,16 @@ namespace HandyMan
     /// </summary>
     public partial class MainWindow : Window
     {
-        Timer timer = new Timer();
         public MainWindow()
         {
             InitializeComponent();
-            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            //Scripts.LLproc.FunctionToCallOne = SetTestTextBox;
-
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             Scripts.Central.Setup();
         }
 
         ~MainWindow()
         {
-            timer.Enabled = false;
-        }
-
-        public void SetTestTextBox(int param)
-        {
-            ((TextBox)FindName("MenuTestTextBox")).Text = param.ToString();
-            /*DebugPopup DBP = new DebugPopup();
-            DBP.Show();*/
+            //Nothin' yet
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -52,53 +42,24 @@ namespace HandyMan
 
         }
 
-        private void StartStopProc_Click(object sender, RoutedEventArgs e)
-        {
-            if (!Scripts.LLproc.HookSet)
-            {
-                //Scripts.LLproc.FunctionToCallOnce = SetTestTextBox;
-                Scripts.LLproc.StartHook();
-                ((Button)sender).Content = "StopHook";
-            }else
-            {
-                Scripts.LLproc.StopHook();
-                ((Button)sender).Content = "StartHook";
-            }
-        }
-
-
-
         private void quit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Scripts.Central.Shutdown();
         }
 
-        private void MenuTestTextBox_Loaded(object sender, RoutedEventArgs e)
-        {            
-            timer.Interval = 50;
-            timer.AutoReset = true;
-            timer.Elapsed += UpdateTestBox;
-            //timer.Enabled = true;
-        }
-
-        private void UpdateTestBox(object sender, ElapsedEventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
-            try
-            {
-                Dispatcher.Invoke(delegate () 
-                                 {
-                                     //((TextBlock)FindName("MenuTestTextBox")).Text = ((Key)Scripts.LLproc.LatestPressedKey).ToString();
-                                     /*string lul = VkKeyScan('a').ToString();
-                                     lul += " " + VkKeyScan('b').ToString();
-                                     lul += " " + VkKeyScan('c').ToString();
-                                     lul += " " + VkKeyScan('ő').ToString();
-
-                                     ((TextBlock)FindName("MenuTestTextBox")).Text = lul;*/
-                                 });
-            }
-            catch { }
+            HandyMan.Scripts.Central.Shutdown();
         }
 
-        
+        private void SaveDic_Click(object sender, RoutedEventArgs e)
+        {
+            Scripts.Central.SaveDictionaries(Types.Languages.Russian);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
     }
 }

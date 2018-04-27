@@ -8,21 +8,26 @@ namespace Handyman.Frames.Dictionary.Lib
 {
     public static class Lib
     {
-        static RussianAdjective[] ResultsRA;
-        static RussianNoun[] ResultsRN;
-        static RussianVerb[] ResultsRV;
+        public static RussianAdjective[] ResultsRA;
+        public static RussianNoun[] ResultsRN;
+        public static RussianVerb[] ResultsRV;
 
         public static string[] SplitMeanings(string meanings)
-        {
-            string[] ret = meanings.Split(',', ';');
+        {           
 
             //Make sure first if it contains anything
             if (meanings == "" || meanings == null)
             {
                 return null;
             }
+            else if(!(meanings.Contains(",") || meanings.Contains(";")))
+            {
+                return new string[] { meanings };
+            }
 
-            for (int i = 0; i < ret[i].Length; i++)
+            string[] ret = meanings.Split(',', ';');
+
+            for (int i = 0; i < ret.Length; i++)
             {
                 ret[i] = RemoveSpacesFromEnds(ret[i]);
             }
@@ -51,7 +56,7 @@ namespace Handyman.Frames.Dictionary.Lib
             //If it ends witn [SPACE]s
             if (param[param.Length - 1] == ' ')
             {
-                for (int k = param.Length; k > -1; k--)
+                for (int k = (param.Length - 1); k > -1; k--)
                 {
                     if (param[k] != ' ')
                     {
@@ -62,12 +67,19 @@ namespace Handyman.Frames.Dictionary.Lib
             }
 
             //Let's chop off:
-            if (pre != 0 || postBool)
+            /*if (pre != 0 || postBool)
             {
-                param = param.Substring(pre, param.Length - post);
+                if (postBool)
+                {
+                    param = param.Substring(pre, (param.Length - post));
+                }
+                else
+                {
+                    param = param.Substring(pre);
+                }
                 postBool = false;
                 pre = 0;
-            }
+            }*/
 
             return param;
         }
@@ -98,7 +110,7 @@ namespace Handyman.Frames.Dictionary.Lib
             return ret;
         }
 
-        public static Grid GetListElement(string word, int tag)
+        public static Grid GetListElement(string word)
         {
             Grid ret = new Grid();
             Label label = new Label();
@@ -108,7 +120,7 @@ namespace Handyman.Frames.Dictionary.Lib
 
             ret.Height = 45;
             ret.Margin = margin;
-            ret.Tag = tag;
+            ret.Tag = word;
             
             label.Content = word;
             label.Foreground = new SolidColorBrush(Colors.White);
@@ -134,8 +146,8 @@ namespace Handyman.Frames.Dictionary.Lib
             }
             foreach (RussianVerb i in ResultsRV)
             {
-                ret.Add(CreateMeaningString(i.Continous.Meanings));
-                ret.Add(CreateMeaningString(i.Perfect.Meanings));
+                ret.Add(CreateMeaningString(i.Meanings));
+                ret.Add(CreateMeaningString(i.Meanings));
             }
 
             return ret.ToArray();
@@ -154,16 +166,85 @@ namespace Handyman.Frames.Dictionary.Lib
             }
             foreach (RussianVerb i in ResultsRV)
             {
-                ret.Add(i.Continous.Word);
-                ret.Add(i.Perfect.Word);
+                ret.Add(i.Continous.Word + " (Continous)");
+                ret.Add(i.Perfect.Word + " (Perfect)");
             }
 
             return ret.ToArray();
         }
 
+        public static string[] GetTags()
+        {
+            List<string> ret = new List<string>();
+            ret.AddRange(GenerateTags(ResultsRA.Length, 'a'));
+            ret.AddRange(GenerateTags(ResultsRN.Length, 'n'));
+            ret.AddRange(GenerateTags(ResultsRV.Length, 'v'));
+            return ret.ToArray();
+        }
+
+        static string[] GenerateTags(int length, char prefix)
+        {
+            string[] ret = new string[length];
+            for (int i = 0; i < length; i++)
+            {
+                ret[i] = prefix + "" + i;
+            }
+            return ret;
+        }
+
+        static string[] GenerateTagsForVerbs(int length, char prefix)
+        {
+            string[] ret = new string[length * 2];
+            for (int i = 0; i < length; i++)
+            {
+                ret[i] = prefix + "" + i;
+                ret[i] = prefix + "" + i;
+            }
+            return ret;
+        }
+
+        
+
         private static void DetailsOnWordEvent(object sender, RoutedEventArgs e)
         {
+            string tag = (string)((Grid)sender).Tag;
+            
+        }
 
+        public static void PopupAdjectiveByTag(string tag)
+        {
+            foreach (RussianAdjective i in ResultsRA)
+            {
+                if (i.Word == tag || CreateMeaningString(i.Meanings).Contains(tag))
+                {
+                    HandyMan.Popups.RussianAdjectivePopup popup = new HandyMan.Popups.RussianAdjectivePopup(i);
+                    popup.Show();
+                }
+            }            
+        }
+
+        public static void PopupNounByTag(string tag)
+        {
+            foreach (RussianNoun i in ResultsRN)
+            {
+                if (i.Word == tag || CreateMeaningString(i.Meanings).Contains(tag))
+                {
+                    HandyMan.Popups.RussianNounPopup popup = new HandyMan.Popups.RussianNounPopup(i);
+                    popup.Show();
+                }
+            }
+        }
+
+        public static void PopupVerbByTag(string tag)
+        {
+            foreach (RussianVerb i in ResultsRV)
+            {
+                if (i.Continous.Word == tag || i.Perfect.Word == tag || CreateMeaningString(i.Meanings).Contains(tag))
+                {
+                    HandyMan.Popups.RussianVerbPopup popup = new HandyMan.Popups.RussianVerbPopup(i);
+                    popup.Show();
+                }
+            }
         }
     }
 }

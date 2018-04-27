@@ -15,6 +15,7 @@ namespace HandyMan.Scripts
         static bool setup = false;
         static bool fileStreamBusy = false;
         static KeyRetyper KR = new KeyRetyper();
+        public static bool LCInternal = false;  //Switch for the temporary Latin>Cyrillic replacer, until the system level solution works
 
         static FileStream RussianDictionaryFS;
         
@@ -34,28 +35,45 @@ namespace HandyMan.Scripts
                 Ticker.StartTicking();
 
                 LLproc.FunctionToCallOnce = KR.TriggerTransfomedKey;
+                OpenFS();
             }
 
             setup = true;
-            //OpenFS();
+
+            LoadDictionaries(Languages.Russian);            
+        }
+
+        public static void Shutdown()
+        {
+            RequestCentralRelease();
+            SaveDictionaries(Languages.Russian);
+            Application.Current.Shutdown();
         }
 
         public static bool SaveDictionaries(Languages dictionary)
         {
-            try
+            string path = Database.Settings.SavePath;
+            switch (dictionary)
             {
+                case Languages.Russian:
+                    path += @"\russianDictionary.dic";
+                    break;
+            }
+
+            /*try
+            {*/
                 RequestCentralRelease();
-                FileStream FS = new FileStream(Database.Settings.SavePath + @"dictionaries.dic", FileMode.Truncate, FileAccess.ReadWrite);
+                FileStream FS = new FileStream(path, FileMode.Truncate, FileAccess.ReadWrite);
                 BinaryFormatter BF = new BinaryFormatter();
 
                 BF.Serialize(FS, Database.RussianDictionary);
                 FS.Close();
                 Reopen();
                 return true;
-            }catch (Exception E)
+            /*}catch (Exception E)
             {
                 return false;
-            }
+            }*/
         }
 
         public static bool LoadDictionaries(Languages dictionary)
@@ -114,16 +132,28 @@ namespace HandyMan.Scripts
 
         static void OpenFS()
         {
-            if (!File.Exists(Database.Settings.SavePath += @"\russianDictionary.dic"))
+            if (!Directory.Exists(Database.Settings.SavePath))
             {
-                File.Create(Database.Settings.SavePath += @"\russianDictionary.dic");
+                Directory.CreateDirectory(Database.Settings.SavePath);
             }
-            Reopen(false);
+            if (!File.Exists(Database.Settings.SavePath + @"\russianDictionary.dic"))
+            {
+                //File.Create(Database.Settings.SavePath + @"\russianDictionary.dic");
+                FileStream FS = new FileStream(Database.Settings.SavePath + @"\russianDictionary.dic", FileMode.Create);
+                FS.Close();
+            }
+            Reopen();
         }
 
         static void RequestCentralRelease()
         {
-            RussianDictionaryFS.Close();
+            try
+            {
+                RussianDictionaryFS.Close();
+            }catch(Exception E)
+            {
+
+            }
         }
         static void Reopen(bool release = true)
         {
@@ -131,7 +161,7 @@ namespace HandyMan.Scripts
             {
                 RequestCentralRelease();
             }
-            RussianDictionaryFS = new FileStream(Database.Settings.SavePath += @"\russianDictionary.dic", FileMode.Open, FileAccess.ReadWrite);
+            RussianDictionaryFS = new FileStream(Database.Settings.SavePath + @"\russianDictionary.dic", FileMode.Open, FileAccess.ReadWrite);
         }
     }
 }
@@ -149,6 +179,7 @@ namespace HandyMan
         
     }
 
+    [Serializable]
     public class RD
     {
         List<RussianNoun> Nouns = new List<RussianNoun>();
@@ -173,11 +204,19 @@ namespace HandyMan
 
         public RussianAdjective[] FindAdjectives(string word)
         {
+            if (word == "*")
+            {
+                return Adjectives.ToArray();
+            }
+            else if (word == "")
+            {
+                return new RussianAdjective[0];
+            }
+
             List<RussianAdjective> ret = new List<RussianAdjective>();
 
             foreach (RussianAdjective i in Adjectives)
             {
-                //if (i.Word.Contains(word) || i.Masculine.Contains(word) || i.Feminine.cont
                 foreach (string j in i)
                 {
                     if (j.Contains(word))
@@ -209,11 +248,19 @@ namespace HandyMan
 
         public RussianVerb[] FindVerbs(string word)
         {
+            if (word == "*")
+            {
+                return Verbs.ToArray();
+            }
+            else if (word == "")
+            {
+                return new RussianVerb[0];
+            }
+
             List<RussianVerb> ret = new List<RussianVerb>();
 
             foreach (RussianVerb i in Verbs)
             {
-                //if (i.Word.Contains(word) || i.Masculine.Contains(word) || i.Feminine.cont
                 foreach (string j in i)
                 {
                     if (j.Contains(word))
@@ -245,11 +292,19 @@ namespace HandyMan
 
         public RussianNoun[] FindNouns(string word)
         {
+            if (word == "*")
+            {
+                return Nouns.ToArray();
+            }
+            else if (word == "")
+            {
+                return new RussianNoun[0];
+            }
+
             List<RussianNoun> ret = new List<RussianNoun>();
 
             foreach (RussianNoun i in Nouns)
             {
-                //if (i.Word.Contains(word) || i.Masculine.Contains(word) || i.Feminine.cont
                 foreach (string j in i)
                 {
                     if (j.Contains(word))
@@ -261,6 +316,107 @@ namespace HandyMan
             }
 
             return ret.ToArray();
+        }
+
+
+
+        //Misc:
+        public string CreateMeaningString(string[] meanings)
+        {
+            string ret = "";
+
+            if (meanings.Length == 1)
+            {
+                return meanings[0];
+            }
+            else if (meanings.Length > 1)
+            {
+                ret = meanings[0];
+            }
+            else
+            {
+                return null;
+            }
+
+            for (int i = 1; i < meanings.Length; i++)
+            {
+                meanings[i] = RemoveSpacesFromEnds(meanings[i]);
+                ret += (", " + meanings[i]);
+            }
+
+            return ret;
+        }
+
+        public string RemoveSpacesFromEnds(string param)
+        {
+            int pre = 0;
+            int post = 1;
+            bool postBool = false;
+
+            //If it starts with [SPACE]s:
+            if (param[0] == ' ')
+            {
+                for (int j = 0; j < param.Length; j++)
+                {
+                    if (param[j] != ' ')
+                    {
+                        pre = j;
+                    }
+                }
+            }
+
+            //If it ends witn [SPACE]s
+            if (param[param.Length - 1] == ' ')
+            {
+                for (int k = (param.Length - 1); k > -1; k--)
+                {
+                    if (param[k] != ' ')
+                    {
+                        post = k;
+                        postBool = true;
+                    }
+                }
+            }
+
+            //Let's chop off:
+            /*if (pre != 0 || postBool)
+            {
+                if (postBool)
+                {
+                    param = param.Substring(pre, (param.Length - post));
+                }
+                else
+                {
+                    param = param.Substring(pre);
+                }
+                postBool = false;
+                pre = 0;
+            }*/
+
+            return param;
+        }
+
+        public string[] SplitMeanings(string meanings)
+        {
+
+            //Make sure first if it contains anything
+            if (meanings == "" || meanings == null)
+            {
+                return null;
+            }
+            else if (!(meanings.Contains(",") || meanings.Contains(";")))
+            {
+                return new string[] { meanings };
+            }
+
+            string[] ret = meanings.Split(',', ';');
+
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = RemoveSpacesFromEnds(ret[i]);
+            }
+
+            return ret;
         }
 
     }

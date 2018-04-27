@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 namespace HandyMan.Types
 {
@@ -8,6 +9,7 @@ namespace HandyMan.Types
     public enum RussianConjugation { Regular1, Regular2, Irregular }
     public enum FileStreams { RussianDictionary }
 
+    [Serializable]
     public struct RussianAdjective
     {
         public string Word;
@@ -36,10 +38,12 @@ namespace HandyMan.Types
         }
     }
 
+    [Serializable]
     public struct RussianVerb
     {
         public RussianContinousVerb Continous;
         public RussianPerfectVerb Perfect;
+        public string[] Meanings;
 
         public IEnumerator<string> GetEnumerator()
         {
@@ -59,24 +63,16 @@ namespace HandyMan.Types
             ret.Add(Perfect.S2);
             ret.Add(Perfect.P3);
 
-            foreach (string i in Continous.Meanings)
-            {
-                ret.Add(i);
-            }
-
-            foreach (string i in Perfect.Meanings)
-            {
-                ret.Add(i);
-            }
+            ret.AddRange(Meanings);
 
             return ret.GetEnumerator();
         }
     }
 
+    [Serializable]
     public struct RussianContinousVerb
     {
         public string Word;
-        public string[] Meanings;
 
         public RussianConjugation Conjugation;
 
@@ -160,16 +156,17 @@ namespace HandyMan.Types
         }
     }
 
+    [Serializable]
     public struct RussianPerfectVerb
     {
         public string Word;
-        public string[] Meanings;
 
         public string S1;
         public string S2;
         public string P3;
     }
 
+    [Serializable]
     public struct RussianNoun
     {
         public string Word;

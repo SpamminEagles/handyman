@@ -61,6 +61,18 @@
     <Compile Include="Frames\Lib.cs">
       <DependentUpon>Dictionary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frames\Tools.xaml.cs">
+      <DependentUpon>Tools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\RussianAdjectivePopup.xaml.cs">
+      <DependentUpon>RussianAdjectivePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\RussianNounPopup.xaml.cs">
+      <DependentUpon>RussianNounPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\RussianVerbPopup.xaml.cs">
+      <DependentUpon>RussianVerbPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\Central.cs" />
     <Compile Include="Scripts\KeyDictionary.cs" />
     <Compile Include="Scripts\KeyRetyper.cs" />
@@ -72,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\Dictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Tools.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,6 +106,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Popups\RussianAdjectivePopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\RussianNounPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\RussianVerbPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -51,3 +51,9 @@ C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\HandyMan.pdb
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\DebugPopup.g.cs
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\DebugPopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianAdjectivePopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianNounPopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianVerbPopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianAdjectivePopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianNounPopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianVerbPopup.baml

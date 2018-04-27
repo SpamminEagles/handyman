@@ -54,14 +54,15 @@ namespace HandyMan.Frames
             ForeignLan = (StackPanel)FindName("ForLanListSearch");
             MotherLan = (StackPanel)FindName("MothLanListSearch");
 
-            //GenerateLists();
+            
         }
 
-        private void GenerateLists(string[] words, string[] tags)
+        private void GenerateLists(StackPanel target, string[] words)
         {
+            target.Children.Clear();
             for (int i = 0; i < words.Length; i++)
             {
-                //ForeignLan.Children.Add(Lib.GetListElement(i));
+                target.Children.Add(Lib.GetListElement(words[i]));
             }
         }
 
@@ -161,11 +162,13 @@ namespace HandyMan.Frames
                             verb.Continous.P3 = ((TextBox)FindName("ConConP3")).Text;
                             break;
                     }
+                    verb.Perfect.Word = ((TextBox)FindName("AWVTextBoxPer")).Text;
                     verb.Perfect.S1 = ((TextBox)FindName("PerConS1")).Text;
                     verb.Perfect.S2 = ((TextBox)FindName("PerConS2")).Text;
                     verb.Perfect.P3 = ((TextBox)FindName("PerConP3")).Text;
+                    verb.Meanings = Lib.SplitMeanings(((TextBox)FindName("MeaningVerb")).Text);
 
-                    ClearBoxes("AWVTextBoxCon", "ConConS1", "ConConS2", "ConConP3", "PerConS2", "PerConS1", "PerConP3");
+                    ClearBoxes("AWVTextBoxCon", "ConConS1", "ConConS2", "ConConP3", "PerConS2", "PerConS1", "PerConP3", "MeaningVerb", "AWVTextBoxPer");
                     UncheckCon();
                     Database.RussianDictionary.AddVerb(verb);
                     break;
@@ -226,5 +229,18 @@ namespace HandyMan.Frames
             }
         }
 
+        private void DicStartSearchForeign_Click(object sender, RoutedEventArgs e)
+        {
+            Lib.ResultsRA = Database.RussianDictionary.FindAdjectives(((TextBox)FindName("DicSearchForeign")).Text);
+            Lib.ResultsRN = Database.RussianDictionary.FindNouns(((TextBox)FindName("DicSearchForeign")).Text);
+            Lib.ResultsRV = Database.RussianDictionary.FindVerbs(((TextBox)FindName("DicSearchForeign")).Text);
+
+            GenerateLists(
+                ForeignLan,
+                Lib.GetListWordsRussia());
+            GenerateLists(
+                MotherLan,
+                Lib.GetListWordsRussianMeaning());
+        }
     }
 }

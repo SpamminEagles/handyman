@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\App.xaml
-3936131863
+6-899077862
 
-15-1503659850
+181646760059
 131569487696
-DebugPopup.xaml;Frames\Dictionary.xaml;MainWindow.xaml;
+DebugPopup.xaml;Frames\Dictionary.xaml;MainWindow.xaml;Popups\RussianAdjectivePopup.xaml;Popups\RussianNounPopup.xaml;Popups\RussianVerbPopup.xaml;
 
 False
 
