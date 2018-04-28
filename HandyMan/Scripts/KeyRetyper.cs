@@ -40,7 +40,7 @@ namespace HandyMan.Scripts
         //Get the dictionary we actually need for converting characters between alphabets
         void CollecDictionary()
         {
-            if (InputType == Languages.English && TargetOutput == Languages.Russian)
+            if (InputType == Languages.Hungarian && TargetOutput == Languages.Russian)
             {
                 CharDictionary = KeyDictionaries.CirillycLatinKeys;
             }
@@ -53,6 +53,7 @@ namespace HandyMan.Scripts
         #endregion
 
         #region Where the magic happens
+        //Major problens with converting the keys - who would have thought?
         public int SwapKeys(int Vkey)
         {
             return
@@ -78,8 +79,7 @@ namespace HandyMan.Scripts
 
         char ParseTargetChar(char InputChar)
         {
-            //return CharDictionary[InputChar];
-            return 'б';
+            return CharDictionary[InputChar];            
         }
 
         //If the user presses a key that is not part of the transformation table, it should be called without a touch
