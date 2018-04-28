@@ -12,8 +12,8 @@
         <Label x:Name="label" Content="Tools" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="63" Width="104" FontSize="36"/>
         <Grid HorizontalAlignment="Left" Height="114" Margin="14,93,0,0" VerticalAlignment="Top" Width="218" Background="#FFBFD1EC">
             <Label Content="Latin to Cyrillic converter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="145"/>
-            <RadioButton x:Name="LatToCyrRBOn" Content="On" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Checked="LatToCyrRBOn_Checked"/>
-            <RadioButton IsChecked="True" x:Name="LatToCyrRBOff" Content="Off" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Checked="LatToCyrRBOff_Checked"/>
+            <RadioButton x:Name="LatToCyrRBOn" Content="On" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Checked="LatToCyrRBOn_Checked" Loaded="LatToCyrRBOn_Loaded"/>
+            <RadioButton x:Name="LatToCyrRBOff" Content="Off" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Checked="LatToCyrRBOff_Checked" Loaded="LatToCyrRBOff_Loaded"/>
         </Grid>
 
     </Grid>

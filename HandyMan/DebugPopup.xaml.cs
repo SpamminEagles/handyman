@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-
+using System.Windows.Controls;
 
 namespace HandyMan
 {
@@ -8,16 +8,16 @@ namespace HandyMan
     /// </summary>
     public partial class DebugPopup : Window
     {
-        //string TextToShow;
+        string TextToShow;
         public DebugPopup(string param = "DEBUG!!")
         {
             InitializeComponent();
-            //TextToShow = param;
+            TextToShow = param;
         }
 
-        /*private void label_Loaded(object sender, RoutedEventArgs e)
+        private void label_Loaded(object sender, RoutedEventArgs e)
         {
-            ((TextBox)sender).Text = TextToShow;
-        }*/
+            ((Label)sender).Content = TextToShow;
+        }
     }
 }

@@ -34,5 +34,15 @@ namespace HandyMan.Frames
         {
             Scripts.Central.LCInternal = false;
         }
+
+        private void LatToCyrRBOn_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((RadioButton)sender).IsChecked = Scripts.Central.LCInternal;
+        }
+
+        private void LatToCyrRBOff_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((RadioButton)sender).IsChecked = !Scripts.Central.LCInternal;
+        }
     }
 }

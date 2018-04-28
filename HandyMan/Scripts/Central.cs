@@ -60,8 +60,8 @@ namespace HandyMan.Scripts
                     break;
             }
 
-            /*try
-            {*/
+            try
+            {
                 RequestCentralRelease();
                 FileStream FS = new FileStream(path, FileMode.Truncate, FileAccess.ReadWrite);
                 BinaryFormatter BF = new BinaryFormatter();
@@ -70,10 +70,10 @@ namespace HandyMan.Scripts
                 FS.Close();
                 Reopen();
                 return true;
-            /*}catch (Exception E)
+            }catch (Exception E)
             {
                 return false;
-            }*/
+            }
         }
 
         public static bool LoadDictionaries(Languages dictionary)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace HandyMan.Types
 {
@@ -78,20 +79,46 @@ namespace HandyMan.Types
             {'ü' , 0xBF }          
         };
 
-        public static readonly Dictionary<int, char> LatinVkeyReversed = LatinVkeyReverse();
-
-        public static Dictionary<int, char> LatinVkeyReverse()  //Forgot I did not want to use the LatinVkey the way I wrote the dictionary
+        public static readonly Dictionary<Key, char> LatinKey = new Dictionary<Key, char>
         {
-            //Prepare the dictionary the function will return
-            Dictionary<int, char> ret = new Dictionary<int, char>();
+            {Key.A, 'a' },
+            {Key.B, 'b' },
+            {Key.C, 'c' },
+            {Key.D, 'd' },
+            {Key.E, 'e' },
+            {Key.F, 'f' },
+            {Key.G, 'g' },
+            {Key.H, 'h' },
+            {Key.I, 'i' },
+            {Key.J, 'j' },
+            {Key.K, 'k' },
+            {Key.L, 'l' },
+            {Key.M, 'm' },
+            {Key.N, 'n' },
+            {Key.O, 'o' },
+            {Key.P, 'p' },
+            {Key.Q, 'q' },
+            {Key.R, 'r' },
+            {Key.S, 's' },
+            {Key.T, 't' },
+            {Key.U, 'u' },
+            {Key.V, 'v' },
+            {Key.W, 'w' },
+            {Key.X, 'x' },
+            {Key.Y, 'y' },
+            {Key.Z, 'z' },
+            {Key.D1, 'á' },
+            {Key.D2, 'é' },
+            {Key.D3, 'ó' },
+            {Key.D4, 'ú' },
+            {Key.D5, 'ö' },
+            {Key.D6, 'ü' }
+        };
 
-            //swap the places
-            foreach (KeyValuePair<char, int> i in LatinVkey)
-            {
-                ret.Add(i.Value, i.Key);
-            }
-
-            return ret; //And return the reference
+        public static bool ContainsKey<T, U>(Dictionary<T, U> dic, T key)
+        {
+            List<T> keys = dic.Keys as List<T>;
+            return keys.Contains(key);            
         }
     }
 }

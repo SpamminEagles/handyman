@@ -57,3 +57,5 @@ C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianAdjectivePopup.baml
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianNounPopup.baml
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Popups\RussianVerbPopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Frames\Tools.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Debug\Frames\Tools.baml

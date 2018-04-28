@@ -74,6 +74,7 @@
       <DependentUpon>RussianVerbPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Scripts\Central.cs" />
+    <Compile Include="Scripts\InternalKeyRetyper.cs" />
     <Compile Include="Scripts\KeyDictionary.cs" />
     <Compile Include="Scripts\KeyRetyper.cs" />
     <Compile Include="Scripts\LowLevelMessing.cs" />
