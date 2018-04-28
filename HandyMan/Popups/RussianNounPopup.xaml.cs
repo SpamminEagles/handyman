@@ -48,5 +48,10 @@ namespace HandyMan.Popups
         {
             ((Label)sender).Content = noun.Meanings.Length != 0 ? Database.RussianDictionary.CreateMeaningString(noun.Meanings) : "N/A";
         }
+
+        private void DeleteEntry_Click(object sender, RoutedEventArgs e)
+        {
+            Database.RussianDictionary.RemoveNoun(noun);
+        }
     }
 }

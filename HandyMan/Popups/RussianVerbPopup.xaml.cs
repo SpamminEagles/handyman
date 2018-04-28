@@ -74,5 +74,10 @@ namespace HandyMan.Popups
         {
             ((Label)sender).Content = verb.Meanings.Length != 0 ? Database.RussianDictionary.CreateMeaningString(verb.Meanings) : "N/A";
         }
+
+        private void DeleteEntry_Click(object sender, RoutedEventArgs e)
+        {
+            Database.RussianDictionary.RemoveVerb(verb);
+        }
     }
 }

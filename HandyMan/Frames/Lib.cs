@@ -27,62 +27,8 @@ namespace Handyman.Frames.Dictionary.Lib
 
             string[] ret = meanings.Split(',', ';');
 
-            for (int i = 0; i < ret.Length; i++)
-            {
-                ret[i] = RemoveSpacesFromEnds(ret[i]);
-            }
-
             return ret;
-        }
-
-        public static string RemoveSpacesFromEnds(string param)
-        {
-            int pre = 0;
-            int post = 1;
-            bool postBool = false;
-
-            //If it starts with [SPACE]s:
-            if (param[0] == ' ')
-            {
-                for (int j = 0; j < param.Length; j++)
-                {
-                    if (param[j] != ' ')
-                    {
-                        pre = j;
-                    }
-                }
-            }
-
-            //If it ends witn [SPACE]s
-            if (param[param.Length - 1] == ' ')
-            {
-                for (int k = (param.Length - 1); k > -1; k--)
-                {
-                    if (param[k] != ' ')
-                    {
-                        post = k;
-                        postBool = true;
-                    }
-                }
-            }
-
-            //Let's chop off:
-            /*if (pre != 0 || postBool)
-            {
-                if (postBool)
-                {
-                    param = param.Substring(pre, (param.Length - post));
-                }
-                else
-                {
-                    param = param.Substring(pre);
-                }
-                postBool = false;
-                pre = 0;
-            }*/
-
-            return param;
-        }
+        }        
 
         public static string CreateMeaningString(string[] meanings)
         {
@@ -94,7 +40,7 @@ namespace Handyman.Frames.Dictionary.Lib
             }
             else if (meanings.Length > 1)
             {
-                ret = meanings[0];
+                ret = meanings[0];  //Set the first one
             }
             else
             {
@@ -103,32 +49,46 @@ namespace Handyman.Frames.Dictionary.Lib
 
             for (int i = 1; i < meanings.Length; i++)
             {
-                meanings[i] = RemoveSpacesFromEnds(meanings[i]);
                 ret += (", " + meanings[i]);
             }
 
             return ret;
         }
 
-        public static Grid GetListElement(string word)
+        public static Grid GetListElement(string word, bool details)
         {
             Grid ret = new Grid();
             Label label = new Label();
+            Button button = new Button();
 
-            Thickness margin = new Thickness();
-            margin.Left = 10;
+            Thickness marginLabel = new Thickness();
+            marginLabel.Left = 10;
 
             ret.Height = 45;
-            ret.Margin = margin;
-            ret.Tag = word;
+            ret.Margin = marginLabel;
             
             label.Content = word;
             label.Foreground = new SolidColorBrush(Colors.White);
             label.FontSize = 14;
-
-            ret.MouseUp += DetailsOnWordEvent;
+            label.VerticalAlignment = VerticalAlignment.Center;
 
             ret.Children.Add(label);
+
+            if (details)
+            {
+                button.Content = "Details";
+                button.Width = 60;
+                button.Height = 20;
+                button.HorizontalAlignment = HorizontalAlignment.Right;
+                button.VerticalAlignment = VerticalAlignment.Center;
+                Thickness marginButton = new Thickness();
+                marginButton.Right = 15;
+                button.Margin = marginButton;
+                button.Tag = word;
+                button.Click += DetailsOnWordEvent;
+
+                ret.Children.Add(button);
+            }
 
             return ret;
         }
@@ -207,8 +167,11 @@ namespace Handyman.Frames.Dictionary.Lib
 
         private static void DetailsOnWordEvent(object sender, RoutedEventArgs e)
         {
-            string tag = (string)((Grid)sender).Tag;
-            
+            string tag = (string)((Button)sender).Tag;
+
+            PopupAdjectiveByTag(tag);
+            PopupNounByTag(tag);
+            PopupVerbByTag(tag);
         }
 
         public static void PopupAdjectiveByTag(string tag)

@@ -80,22 +80,22 @@
                     <TextBox x:Name="AWVTextBoxCon" HorizontalAlignment="Left" Height="23" Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" IsKeyboardFocusedChanged="EnableSave"/>
                     <Label Content="3) Conjugation" HorizontalAlignment="Left" Margin="255,49,0,0" VerticalAlignment="Top"/>
                     <Grid>
-                        <RadioButton x:Name="RBConReg1" Content="Regular I" HorizontalAlignment="Left" Margin="261,79,0,0" VerticalAlignment="Top" Width="80" Checked="Con_Checked"/>
-                        <RadioButton x:Name="RBConReg2" Content="RBConReg2" HorizontalAlignment="Left" Margin="261,99,0,0" VerticalAlignment="Top" Width="80"/>
-                        <RadioButton x:Name="RBConIrreg" Content="Irregular" HorizontalAlignment="Left" Margin="261,119,0,0" VerticalAlignment="Top" Width="80" Checked="RBConIrreg_Checked"/>
-                        <TextBox x:Name="ConConS1" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-                        <TextBox x:Name="ConConS2" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-                        <TextBox x:Name="ConConP3" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+                        <RadioButton x:Name="RBConReg1" Content="Regular I" HorizontalAlignment="Left" Margin="261,79,0,0" VerticalAlignment="Top" Width="80" Checked="Con_Checked" />
+                        <RadioButton x:Name="RBConReg2" Content="RBConReg2" HorizontalAlignment="Left" Margin="261,99,0,0" VerticalAlignment="Top" Width="80" Checked="Con_Checked" />
+                        <RadioButton x:Name="RBConIrreg" Content="Irregular" HorizontalAlignment="Left" Margin="261,119,0,0" VerticalAlignment="Top" Width="80" Checked="Con_Checked" />
+                        <TextBox x:Name="ConConS1" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+                        <TextBox x:Name="ConConS2" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+                        <TextBox x:Name="ConConP3" IsEnabled="false" HorizontalAlignment="Left" Height="23" Margin="464,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
                         <Label Content="S/1" HorizontalAlignment="Left" Margin="421,79,0,0" VerticalAlignment="Top"/>
                         <Label Content="S/2" HorizontalAlignment="Left" Margin="421,107,0,0" VerticalAlignment="Top"/>
                         <Label Content="P/3" HorizontalAlignment="Left" Margin="421,135,0,0" VerticalAlignment="Top"/>
                         <Label Content="4) Perfect form" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top"/>
-                        <TextBox x:Name="PerConS1" HorizontalAlignment="Left" Height="23" Margin="464,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-                        <TextBox x:Name="PerConS2" HorizontalAlignment="Left" Height="23" Margin="464,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+                        <TextBox x:Name="PerConS1" HorizontalAlignment="Left" Height="23" Margin="464,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+                        <TextBox x:Name="PerConS2" HorizontalAlignment="Left" Height="23" Margin="464,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
                         <Label Content="S/1" HorizontalAlignment="Left" Margin="421,191,0,0" VerticalAlignment="Top"/>
                         <Label Content="S/2" HorizontalAlignment="Left" Margin="421,219,0,0" VerticalAlignment="Top"/>
                         <Label Content="P/3" HorizontalAlignment="Left" Margin="421,247,0,0" VerticalAlignment="Top"/>
-                        <TextBox x:Name="PerConP3" HorizontalAlignment="Left" Height="23" Margin="464,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+                        <TextBox x:Name="PerConP3" HorizontalAlignment="Left" Height="23" Margin="464,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
                         <Label Content="5) Conjugation" HorizontalAlignment="Left" Margin="261,161,0,0" VerticalAlignment="Top" Width="92"/>
 
                     </Grid>

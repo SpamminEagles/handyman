@@ -57,12 +57,12 @@ namespace HandyMan.Frames
             
         }
 
-        private void GenerateLists(StackPanel target, string[] words)
+        private void GenerateLists(StackPanel target, string[] words, bool details)
         {
             target.Children.Clear();
             for (int i = 0; i < words.Length; i++)
             {
-                target.Children.Add(Lib.GetListElement(words[i]));
+                target.Children.Add(Lib.GetListElement(words[i], details));
             }
         }
 
@@ -186,11 +186,6 @@ namespace HandyMan.Frames
             }
         }
 
-        private void RBConIrreg_Checked(object sender, RoutedEventArgs e)
-        {
-            SetConBoxes((bool)((RadioButton)FindName("RBConIrreg")).IsChecked);
-        }
-
         private void SetConBoxes (bool enable)
         {
             ((TextBox)FindName("ConConS1")).IsEnabled = enable;
@@ -210,6 +205,7 @@ namespace HandyMan.Frames
                     break;
                 case "RBConIrreg":
                     conjugation = RussianConjugation.Irregular;
+                    SetConBoxes((bool)((RadioButton)FindName("RBConIrreg")).IsChecked);
                     break;
             }
         }
@@ -237,10 +233,12 @@ namespace HandyMan.Frames
 
             GenerateLists(
                 ForeignLan,
-                Lib.GetListWordsRussia());
+                Lib.GetListWordsRussia(),
+                false);
             GenerateLists(
                 MotherLan,
-                Lib.GetListWordsRussianMeaning());
+                Lib.GetListWordsRussianMeaning(),
+                true);
         }
     }
 }

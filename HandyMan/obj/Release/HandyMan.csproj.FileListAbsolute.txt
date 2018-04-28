@@ -17,3 +17,16 @@ C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Relea
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\HandyMan.csprojResolveAssemblyReference.cache
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\DebugPopup.g.cs
 C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\DebugPopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Frames\Tools.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Popups\RussianAdjectivePopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Popups\RussianNounPopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Popups\RussianVerbPopup.g.cs
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Frames\Tools.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Popups\RussianAdjectivePopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Popups\RussianNounPopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\Popups\RussianVerbPopup.baml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\bin\Release\HandyMan.exe.manifest
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\bin\Release\HandyMan.application
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\HandyMan.TrustInfo.xml
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\HandyMan.exe.manifest
+C:\Users\EgoMan\OneDrive\Source\C#\src_main\HandyMan\handyman\HandyMan\obj\Release\HandyMan.application

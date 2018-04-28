@@ -13,12 +13,18 @@ namespace HandyMan
     /// </summary>
     public partial class MainWindow : Window
     {
+        Frame MainFrame;
+        Frame ToolFrame;
         public MainWindow()
         {
             InitializeComponent();
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             Scripts.Central.Setup();
-            Frame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
+
+            MainFrame = (Frame)FindName("Frame");
+            ToolFrame = (Frame)FindName("ToolsFrame");
+            MainFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
+            ToolFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
         }
 
         ~MainWindow()
@@ -37,7 +43,8 @@ namespace HandyMan
         private void MB_Dictionary_Click(object sender, RoutedEventArgs e)
         {
             Uri src = new Uri("Frames/Dictionary.xaml", UriKind.Relative);
-            Frame.Source = src;
+            MainFrame.Source = src;
+            ToolFrame.Visibility = Visibility.Hidden;
         }
 
         private void MB_Notebook_Click(object sender, RoutedEventArgs e)
@@ -64,7 +71,8 @@ namespace HandyMan
         private void MB_TOOLS_Click(object sender, RoutedEventArgs e)
         {
             Uri src = new Uri("Frames/Tools.xaml", UriKind.Relative);
-            Frame.Source = src;
+            ToolFrame.Source = src;
+            ToolFrame.Visibility = Visibility.Visible;
         }
 
         private void Window_TextInput(object sender, TextCompositionEventArgs e)
@@ -90,6 +98,11 @@ namespace HandyMan
         private void Window_KeyDown_1(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void ToolsFrame_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ((Frame)sender).Visibility = Visibility.Hidden;
         }
     }
 }

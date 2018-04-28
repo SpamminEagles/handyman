@@ -138,7 +138,6 @@ namespace HandyMan.Scripts
             }
             if (!File.Exists(Database.Settings.SavePath + @"\russianDictionary.dic"))
             {
-                //File.Create(Database.Settings.SavePath + @"\russianDictionary.dic");
                 FileStream FS = new FileStream(Database.Settings.SavePath + @"\russianDictionary.dic", FileMode.Create);
                 FS.Close();
             }

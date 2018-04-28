@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HandyMan"
         mc:Ignorable="d"
-        Title="HandyMan" Height="600" Width="1000" MinWidth="800" MinHeight="480" ResizeMode="CanMinimize" MaxWidth="1200" MaxHeight="720" Closed="Window_Closed" TextInput="Window_TextInput" KeyDown="Window_KeyDown">
+        Title="HandyMan" Height="600" Width="1000" MinWidth="800" MinHeight="480" ResizeMode="CanMinimize" MaxWidth="1200" MaxHeight="720" Closed="Window_Closed" TextInput="Window_TextInput" KeyDown="Window_KeyDown" Icon="Visuals/icons8-swiss-army-knife-filled-50.png">
     <Window.Background>
         <SolidColorBrush Color="White"/>
     </Window.Background>
@@ -23,11 +23,11 @@
             <Separator Height="9.5" Margin="15,206.833,15,0" VerticalAlignment="Top" Width="120"/>
             <Button Content="StandardTools" x:Name="MB_TOOLS" Height="31.5" Margin="15,221.333,15,0" VerticalAlignment="Top" Background="#26FFFFFF" FontSize="16" Foreground="White" BorderBrush="#00000000" Click="MB_TOOLS_Click"/>
             <Button x:Name="quit" Content="Quit" HorizontalAlignment="Left" Margin="41,472,0,0" VerticalAlignment="Top" Width="75" Click="quit_Click"/>
-            <Button x:Name="SaveDic" Content="Save" HorizontalAlignment="Left" Margin="41,426,0,0" VerticalAlignment="Top" Width="75" Click="SaveDic_Click"/>
         </Grid>
-        <Frame Name="Frame" DockPanel.Dock="Right" Background="#FFEAEAA0">
-
-        </Frame>
+        <Grid>
+            <Frame Name="Frame" DockPanel.Dock="Right" Background="#FFEAEAA0" />
+            <Frame Name="ToolsFrame" Visibility="Hidden" DockPanel.Dock="Right" Background="#FFEAEAA0" LostFocus="ToolsFrame_LostFocus" />
+        </Grid>
 
     </DockPanel>
 

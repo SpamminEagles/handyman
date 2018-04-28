@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HandyMan.Popups"
         mc:Ignorable="d"
-        Title="RussianNounPopup" Height="264.573" Width="621.357" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="RussianNounPopup" Height="318.212" Width="621.357" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
-        <Label Content="Word:" HorizontalAlignment="Left" Margin="55,82,0,0" VerticalAlignment="Top" Width="71" Height="28" FontSize="14"/>
-        <Label x:Name="Word" Content="N/A" HorizontalAlignment="Left" Margin="55,115,0,0" VerticalAlignment="Top" Width="246" Loaded="Word_Loaded"/>
-        <Label x:Name="Title" Content="N/A" HorizontalAlignment="Left" Margin="39,10,0,0" VerticalAlignment="Top" Height="53" Width="430" FontSize="24" Loaded="Title_Loaded"/>
-        <Label Content="Plural:" HorizontalAlignment="Left" Margin="357,82,0,0" VerticalAlignment="Top" Width="63" FontSize="14"/>
-        <Label x:Name="Plural" Content="N/A" HorizontalAlignment="Left" Margin="357,113,0,0" VerticalAlignment="Top" Width="201" Loaded="Plural_Loaded"/>
-        <Label Content="Meanings:" HorizontalAlignment="Left" Margin="55,159,0,0" VerticalAlignment="Top" Width="71" Height="31" FontSize="14"/>
-        <Label x:Name="Manings" Content="N/A" HorizontalAlignment="Left" Margin="55,190,0,0" VerticalAlignment="Top" Width="503" Loaded="Manings_Loaded"/>
+        <Label Content="Word:" HorizontalAlignment="Left" Margin="39,64,0,0" VerticalAlignment="Top" Width="71" Height="28" FontSize="14"/>
+        <Label x:Name="Word" Content="N/A" HorizontalAlignment="Left" Margin="39,97,0,0" VerticalAlignment="Top" Width="246" Loaded="Word_Loaded"/>
+        <Label x:Name="Title" Content="N/A" HorizontalAlignment="Left" Margin="39,10,0,0" VerticalAlignment="Top" Height="53" Width="566" FontSize="24" Loaded="Title_Loaded"/>
+        <Label Content="Plural:" HorizontalAlignment="Left" Margin="341,64,0,0" VerticalAlignment="Top" Width="63" FontSize="14"/>
+        <Label x:Name="Plural" Content="N/A" HorizontalAlignment="Left" Margin="341,95,0,0" VerticalAlignment="Top" Width="201" Loaded="Plural_Loaded"/>
+        <Label Content="Meanings:" HorizontalAlignment="Left" Margin="39,141,0,0" VerticalAlignment="Top" Width="71" Height="31" FontSize="14"/>
+        <Label x:Name="Manings" Content="N/A" HorizontalAlignment="Left" Margin="39,172,0,0" VerticalAlignment="Top" Width="503" Loaded="Manings_Loaded"/>
+        <Button x:Name="DeleteEntry" Content="Delete entry" HorizontalAlignment="Left" Margin="514,251,0,0" VerticalAlignment="Top" Width="81" Click="DeleteEntry_Click" RenderTransformOrigin="0.456,-1.032"/>
 
     </Grid>
 </Window>

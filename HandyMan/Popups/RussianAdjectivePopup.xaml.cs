@@ -54,5 +54,10 @@ namespace HandyMan.Popups
         {
             ((Label)sender).Content = adjective.Meanings.Length != 0 ? Database.RussianDictionary.CreateMeaningString(adjective.Meanings) : "N/A";
         }
+
+        private void RemoveEntry_Click(object sender, RoutedEventArgs e)
+        {
+            Database.RussianDictionary.RemoveAdjective(adjective);
+        }
     }
 }
